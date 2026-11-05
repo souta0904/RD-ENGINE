@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Logger.h"
 #include <format>
 #include <stdexcept>
 
@@ -151,6 +152,14 @@ namespace rd
 		{
 			SetWindowPlacement(mHWnd, &placement);
 		}
+
+		Logger::Info(
+			"Window created: {}x{}, DPI {}, maximized {}, fullscreen {}",
+			mWidth,
+			mHeight,
+			GetDpiForWindow(mHWnd),
+			state.maximized,
+			state.fullscreen);
 	}
 
 	Window::~Window()
@@ -161,6 +170,7 @@ namespace rd
 			DestroyWindow(mHWnd);
 		}
 		UnregisterClass(kClassName, mHInst);
+		Logger::Info("Window destroyed");
 	}
 
 	// 溜まっているメッセージをすべて処理
@@ -204,6 +214,7 @@ namespace rd
 		{
 			SetWindowPlacement(mHWnd, &placement);
 		}
+		Logger::Info("Window client size set: {}x{}", width, height);
 	}
 
 	// ボーダーレスフルスクリーンを切り替え
@@ -230,6 +241,7 @@ namespace rd
 				SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
 		}
 		mIsFullscreen = fullscreen;
+		Logger::Info("Window fullscreen: {}", fullscreen);
 	}
 
 	// 枠を消してモニタ全体に広げる

@@ -8,10 +8,10 @@
 namespace rd::JsonUtility
 {
 
-	// ファイルがない、または壊れている場合はnulloptを返す(壊れている場合のみ出力ウィンドウへ通知)
+	// ファイルがない、または壊れている場合はnulloptを返す(壊れている場合のみエラーログを出力)
 	std::optional<nlohmann::json> LoadFile(const std::filesystem::path& path);
 	// 親フォルダがなければ作成する
-	// 一時ファイルを経由するので、失敗しても既存のファイルは壊れない(失敗は出力ウィンドウへ通知)
+	// 一時ファイルを経由するので、失敗しても既存のファイルは壊れない(失敗時はエラーログを出力)
 	bool SaveFile(const std::filesystem::path& path, const nlohmann::json& root);
 
 	// nameの子オブジェクトを返す(なければnullptr)

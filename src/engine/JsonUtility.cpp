@@ -1,7 +1,7 @@
 #include "JsonUtility.h"
-#include <Windows.h>
+#include "Logger.h"
+#include "StringUtility.h"
 #include <cmath>
-#include <format>
 #include <fstream>
 #include <limits>
 #include <system_error>
@@ -14,13 +14,6 @@ namespace rd::JsonUtility
 
 	namespace
 	{
-		// パスは文字化けしないようにワイド文字で出力する
-		void LogFailure(const std::string& message, const std::filesystem::path& path)
-		{
-			OutputDebugStringA(std::format("Failure: {}: ", message).c_str());
-			OutputDebugStringW((path.native() + L"\n").c_str());
-		}
-
 		// nameの値を返す(なければnullptr)
 		const json* Find(const json& object, const char* name)
 		{
@@ -74,7 +67,7 @@ namespace rd::JsonUtility
 		}
 		catch (const json::exception& e)
 		{
-			LogFailure(std::format("Load JSON ({})", e.what()), path);
+			Logger::Error("Failed to parse JSON: {} ({})", StringUtility::ToUtf8(path.native()), e.what());
 			return std::nullopt;
 		}
 	}
@@ -96,7 +89,7 @@ namespace rd::JsonUtility
 			file.close();
 			if (!file)
 			{
-				LogFailure("Save JSON", tempPath);
+				Logger::Error("Failed to write JSON: {}", StringUtility::ToUtf8(tempPath.native()));
 				std::filesystem::remove(tempPath, error);
 				return false;
 			}
@@ -105,7 +98,8 @@ namespace rd::JsonUtility
 		std::filesystem::rename(tempPath, path, error);
 		if (error)
 		{
-			LogFailure(std::format("Save JSON ({})", error.message()), path);
+			// error.message()はUTF-8とは限らないのでエラーコードを出力する
+			Logger::Error("Failed to replace JSON: {} (error {})", StringUtility::ToUtf8(path.native()), error.value());
 			std::filesystem::remove(tempPath, error);
 			return false;
 		}

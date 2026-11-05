@@ -12,13 +12,22 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\CrashHandler.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
     <ClCompile Include="src\engine\Engine.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\JsonUtility.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Logger.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
     <ClCompile Include="src\engine\Settings.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\StringUtility.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\Window.cpp">
@@ -26,6 +35,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\CrashHandler.h">
+      <Filter>src\engine</Filter>
+    </ClInclude>
     <ClInclude Include="src\engine\Engine.h">
       <Filter>src\engine</Filter>
     </ClInclude>
@@ -35,7 +47,13 @@
     <ClInclude Include="src\engine\JsonUtility.h">
       <Filter>src\engine</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\Logger.h">
+      <Filter>src\engine</Filter>
+    </ClInclude>
     <ClInclude Include="src\engine\Settings.h">
+      <Filter>src\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\StringUtility.h">
       <Filter>src\engine</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\Window.h">

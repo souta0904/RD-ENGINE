@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "EngineInfo.h"
+#include "Logger.h"
 #include <format>
 #include <iterator>
 
@@ -34,6 +35,7 @@ namespace rd
 			mSettings.window)
 	{
 		mWindow.SetKeyDownHandler([this](uint32_t key) { OnKeyDown(key); });
+		Logger::Info("Engine initialized");
 	}
 
 	// エンジンを実行
@@ -46,6 +48,7 @@ namespace rd
 			Sleep(1);
 		}
 
+		Logger::Info("Engine shutting down");
 		mSettings.window = mWindow.GetFinalState();
 		SaveSettings(kSettingsPath, mSettings);
 	}
