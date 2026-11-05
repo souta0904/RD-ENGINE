@@ -90,12 +90,14 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\engine\Engine.cpp" />
+    <ClCompile Include="src\engine\JsonUtility.cpp" />
     <ClCompile Include="src\engine\Settings.cpp" />
     <ClCompile Include="src\engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Engine.h" />
     <ClInclude Include="src\engine\EngineInfo.h" />
+    <ClInclude Include="src\engine\JsonUtility.h" />
     <ClInclude Include="src\engine\Settings.h" />
     <ClInclude Include="src\engine\Window.h" />
   </ItemGroup>

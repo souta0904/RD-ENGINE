@@ -1,8 +1,6 @@
 #include "Settings.h"
+#include "JsonUtility.h"
 #include <algorithm>
-#include <format>
-#include <fstream>
-#include <nlohmann/json.hpp>
 
 namespace rd
 {
@@ -12,69 +10,62 @@ namespace rd
 	namespace
 	{
 		// 手で編集された値でもウィンドウ計算が破綻しない範囲
-		constexpr int kMinClientSize = 64;
-		constexpr int kMaxClientSize = 16384;
-		constexpr int kMaxPosition = 100000;
-
-		void Log(const std::string& message)
-		{
-			OutputDebugStringA((message + "\n").c_str());
-		}
+		constexpr uint32_t kMinClientSize = 64;
+		constexpr uint32_t kMaxClientSize = 16384;
+		constexpr int32_t kMaxPosition = 100000;
 	}
 
 	Settings LoadSettings(const std::filesystem::path& path)
 	{
 		Settings settings;
-		std::ifstream file(path);
-		if (!file)
+		const std::optional<json> root = JsonUtility::LoadFile(path);
+		if (!root)
 		{
-			// 初回起動
+			return settings;
+		}
+		const json* window = JsonUtility::FindObject(*root, "window");
+		if (!window)
+		{
 			return settings;
 		}
 
-		try
+		// 読めなかった項目は既定値のまま
+		WindowState& state = settings.window;
+		JsonUtility::Get(*window, "width", state.width);
+		JsonUtility::Get(*window, "height", state.height);
+		state.width = std::clamp(state.width, kMinClientSize, kMaxClientSize);
+		state.height = std::clamp(state.height, kMinClientSize, kMaxClientSize);
+
+		int32_t x = 0;
+		int32_t y = 0;
+		if (JsonUtility::Get(*window, "x", x) && JsonUtility::Get(*window, "y", y))
 		{
-			const json root = json::parse(file);
-			const json& window = root.at("window");
-			WindowState state;
-			state.width = std::clamp(window.at("width").get<int>(), kMinClientSize, kMaxClientSize);
-			state.height = std::clamp(window.at("height").get<int>(), kMinClientSize, kMaxClientSize);
 			state.position = POINT{
-				std::clamp(window.at("x").get<int>(), -kMaxPosition, kMaxPosition),
-				std::clamp(window.at("y").get<int>(), -kMaxPosition, kMaxPosition) };
-			state.maximized = window.at("maximized").get<bool>();
-			state.fullscreen = window.at("fullscreen").get<bool>();
-			settings.window = state;
+				std::clamp(x, -kMaxPosition, kMaxPosition),
+				std::clamp(y, -kMaxPosition, kMaxPosition) };
 		}
-		catch (const json::exception& e)
-		{
-			Log(std::format("Failure: Load settings: {}", e.what()));
-		}
+
+		JsonUtility::Get(*window, "maximized", state.maximized);
+		JsonUtility::Get(*window, "fullscreen", state.fullscreen);
 		return settings;
 	}
 
 	void SaveSettings(const std::filesystem::path& path, const Settings& settings)
 	{
 		const WindowState& state = settings.window;
-		const POINT position = state.position.value_or(POINT{ 0, 0 });
-		const json root = {
-			{ "window", {
-				{ "width", state.width },
-				{ "height", state.height },
-				{ "x", position.x },
-				{ "y", position.y },
-				{ "maximized", state.maximized },
-				{ "fullscreen", state.fullscreen } } } };
-
-		std::error_code error;
-		std::filesystem::create_directories(path.parent_path(), error);
-
-		std::ofstream file(path);
-		file << root.dump(1, '\t') << '\n';
-		if (!file)
+		json root;
+		json& window = root["window"];
+		JsonUtility::Set(window, "width", state.width);
+		JsonUtility::Set(window, "height", state.height);
+		if (state.position)
 		{
-			Log("Failure: Save settings");
+			JsonUtility::Set(window, "x", state.position->x);
+			JsonUtility::Set(window, "y", state.position->y);
 		}
+		JsonUtility::Set(window, "maximized", state.maximized);
+		JsonUtility::Set(window, "fullscreen", state.fullscreen);
+
+		JsonUtility::SaveFile(path, root);
 	}
 
 } // namespace rd
