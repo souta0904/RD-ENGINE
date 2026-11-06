@@ -7,6 +7,9 @@
     <Filter Include="src\engine">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\engine\graphics">
+      <UniqueIdentifier>{B3E5C1A2-6D4F-4E8B-9A71-2C5D8F0E3B64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -33,6 +36,27 @@
     <ClCompile Include="src\engine\Window.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\graphics\CommandList.cpp">
+      <Filter>src\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\CommandQueue.cpp">
+      <Filter>src\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\DescriptorHeap.cpp">
+      <Filter>src\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\GraphicsDevice.cpp">
+      <Filter>src\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\GraphicsSystem.cpp">
+      <Filter>src\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\GraphicsUtility.cpp">
+      <Filter>src\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\SwapChain.cpp">
+      <Filter>src\engine\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\CrashHandler.h">
@@ -58,6 +82,27 @@
     </ClInclude>
     <ClInclude Include="src\engine\Window.h">
       <Filter>src\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\CommandList.h">
+      <Filter>src\engine\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\CommandQueue.h">
+      <Filter>src\engine\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\DescriptorHeap.h">
+      <Filter>src\engine\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\GraphicsDevice.h">
+      <Filter>src\engine\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\GraphicsSystem.h">
+      <Filter>src\engine\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\GraphicsUtility.h">
+      <Filter>src\engine\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\SwapChain.h">
+      <Filter>src\engine\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

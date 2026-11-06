@@ -96,6 +96,13 @@
     <ClCompile Include="src\engine\Settings.cpp" />
     <ClCompile Include="src\engine\StringUtility.cpp" />
     <ClCompile Include="src\engine\Window.cpp" />
+    <ClCompile Include="src\engine\graphics\CommandList.cpp" />
+    <ClCompile Include="src\engine\graphics\CommandQueue.cpp" />
+    <ClCompile Include="src\engine\graphics\DescriptorHeap.cpp" />
+    <ClCompile Include="src\engine\graphics\GraphicsDevice.cpp" />
+    <ClCompile Include="src\engine\graphics\GraphicsSystem.cpp" />
+    <ClCompile Include="src\engine\graphics\GraphicsUtility.cpp" />
+    <ClCompile Include="src\engine\graphics\SwapChain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\CrashHandler.h" />
@@ -106,6 +113,13 @@
     <ClInclude Include="src\engine\Settings.h" />
     <ClInclude Include="src\engine\StringUtility.h" />
     <ClInclude Include="src\engine\Window.h" />
+    <ClInclude Include="src\engine\graphics\CommandList.h" />
+    <ClInclude Include="src\engine\graphics\CommandQueue.h" />
+    <ClInclude Include="src\engine\graphics\DescriptorHeap.h" />
+    <ClInclude Include="src\engine\graphics\GraphicsDevice.h" />
+    <ClInclude Include="src\engine\graphics\GraphicsSystem.h" />
+    <ClInclude Include="src\engine\graphics\GraphicsUtility.h" />
+    <ClInclude Include="src\engine\graphics\SwapChain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

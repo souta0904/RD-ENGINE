@@ -1,6 +1,7 @@
 #pragma once
 #include "Settings.h"
 #include "Window.h"
+#include "graphics/GraphicsSystem.h"
 #include <cstddef>
 #include <cstdint>
 
@@ -23,6 +24,8 @@ namespace rd
 		// mWindowの初期化に使うので先に宣言する
 		Settings mSettings;
 		Window mWindow;
+		// ウィンドウより先に破棄する
+		GraphicsSystem mGraphics;
 		size_t mResolutionIndex = 0;
 	};
 

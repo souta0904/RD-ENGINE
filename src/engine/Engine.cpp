@@ -33,6 +33,7 @@ namespace rd
 				EngineInfo::kVersionMinor,
 				EngineInfo::kVersionPatch),
 			mSettings.window)
+		, mGraphics(mWindow)
 	{
 		mWindow.SetKeyDownHandler([this](uint32_t key) { OnKeyDown(key); });
 		Logger::Info("Engine initialized");
@@ -44,8 +45,15 @@ namespace rd
 		// ゲームループ
 		while (mWindow.ProcessMessages())
 		{
-			// TODO: D3D12のPresent(VSync)で待てるようになったら消す
-			Sleep(1);
+			// 最小化中は描画できないので、次のメッセージが来るまで眠る
+			if (mWindow.IsMinimized())
+			{
+				WaitMessage();
+				continue;
+			}
+
+			mGraphics.BeginFrame();
+			mGraphics.EndFrame();
 		}
 
 		Logger::Info("Engine shutting down");
